@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://www.eclipse.org/m2e/documentation/m2e-execution-not-covered.html -->
+<lifecycleMappingMetadata>
+  <pluginExecutions>
+
+    <pluginExecution>
+      <pluginExecutionFilter>
+        <groupId>org.apache.avro</groupId>
+        <artifactId>avro-maven-plugin</artifactId>
+        <goals>
+          <goal>schema</goal>
+        </goals>
+        <versionRange>[1.8.0,)</versionRange>
+      </pluginExecutionFilter>
+      <action>
+        <ignore />
+      </action>
+    </pluginExecution>
+
+  </pluginExecutions>
+</lifecycleMappingMetadata>
