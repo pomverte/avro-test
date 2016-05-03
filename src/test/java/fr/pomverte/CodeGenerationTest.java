@@ -19,7 +19,7 @@ import example.avro.User;
  * {@link https://avro.apache.org/docs/current/gettingstartedjava.html}
  *
  */
-public class AvroCodeGenerationTest {
+public class CodeGenerationTest {
 
     @Test
     public void createSerializeDeserialize() throws IOException {

@@ -16,7 +16,10 @@ import org.apache.avro.io.DatumReader;
 import org.apache.avro.io.DatumWriter;
 import org.junit.Test;
 
-public class AvroWithoutCodeGenerationTest {
+/**
+ * Avro Without Code Generation
+ */
+public class GenericRecordTest {
 
     private static final String USER_SCHEMA_PATH = "src/main/avro/user.avsc";
     
