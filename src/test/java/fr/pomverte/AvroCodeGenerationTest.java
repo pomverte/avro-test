@@ -39,8 +39,8 @@ public class AvroCodeGenerationTest {
         // Serialize user1, user2 and user3 to disk
         DatumWriter<User> userDatumWriter = new SpecificDatumWriter<User>(User.class);
         DataFileWriter<User> dataFileWriter = new DataFileWriter<User>(userDatumWriter);
-        File file = new File("target/users.avro");
-        dataFileWriter.create(user1.getSchema(), file);
+        File outputFile = new File("target/users.avro");
+        dataFileWriter.create(user1.getSchema(), outputFile);
         dataFileWriter.append(user1);
         dataFileWriter.append(user2);
         dataFileWriter.append(user3);
@@ -49,7 +49,7 @@ public class AvroCodeGenerationTest {
         // DESERIALIZE USERS FROM DISK
         DatumReader<User> userDatumReader = new SpecificDatumReader<User>(User.class);
         @SuppressWarnings("resource")
-        DataFileReader<User> dataFileReader = new DataFileReader<User>(file, userDatumReader);
+        DataFileReader<User> dataFileReader = new DataFileReader<User>(outputFile, userDatumReader);
         User user = null;
         int counter = 0;
         while (dataFileReader.hasNext()) {

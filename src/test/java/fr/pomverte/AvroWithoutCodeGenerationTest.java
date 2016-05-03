@@ -37,10 +37,10 @@ public class AvroWithoutCodeGenerationTest {
         user2.put("favorite_color", "red");
 
         // Serialize user1 and user2 to disk
-        File file = new File("target/users.avro");
+        File outputFile = new File("target/users.avro");
         DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<GenericRecord>(schema);
         DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<GenericRecord>(datumWriter);
-        dataFileWriter.create(schema, file);
+        dataFileWriter.create(schema, outputFile);
         dataFileWriter.append(user1);
         dataFileWriter.append(user2);
         dataFileWriter.close();
@@ -48,7 +48,7 @@ public class AvroWithoutCodeGenerationTest {
         // Deserialize users from disk
         DatumReader<GenericRecord> datumReader = new GenericDatumReader<GenericRecord>(schema);
         @SuppressWarnings("resource")
-        DataFileReader<GenericRecord> dataFileReader = new DataFileReader<GenericRecord>(file, datumReader);
+        DataFileReader<GenericRecord> dataFileReader = new DataFileReader<GenericRecord>(outputFile, datumReader);
         GenericRecord user = null;
         int counter = 0;
         while (dataFileReader.hasNext()) {
