@@ -68,7 +68,7 @@ public class CodeGenerationTest {
         List<User> users = UserDataSetHelper.createUser();
 
         // SERIALIZING
-        // Serialize user1, user2 and user3 to disk
+        // Serialize user1, user2 and user3 into a stream
         DatumWriter<User> userDatumWriter = new SpecificDatumWriter<User>(User.class);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         BinaryEncoder encoder = EncoderFactory.get().binaryEncoder(outputStream, null);
