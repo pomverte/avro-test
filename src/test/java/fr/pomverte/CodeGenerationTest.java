@@ -6,7 +6,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.avro.file.DataFileReader;
@@ -21,6 +20,8 @@ import org.apache.avro.specific.SpecificDatumReader;
 import org.apache.avro.specific.SpecificDatumWriter;
 import org.junit.Test;
 
+import fr.pomverte.helper.UserDataSetHelper;
+
 import example.avro.User;
 
 /**
@@ -29,29 +30,9 @@ import example.avro.User;
  */
 public class CodeGenerationTest {
 
-    private List<User> createUser() {
-        // CREATING USERS
-        User user1 = new User();
-        user1.setName("Alyssa");
-        user1.setFavoriteNumber(256);
-        // Leave favorite color null
-
-        // Alternate constructor
-        User user2 = new User("Ben", 7, "red");
-
-        // Construct via builder
-        User user3 = User.newBuilder().setName("Charlie").setFavoriteColor("blue").setFavoriteNumber(null).build();
-
-        ArrayList<User> result = new ArrayList<User>();
-        result.add(user1);
-        result.add(user2);
-        result.add(user3);
-        return result;
-    }
-
     @Test
     public void fileSerializationTest() throws IOException {
-        List<User> users = this.createUser();
+        List<User> users = UserDataSetHelper.createUser();
 
         // SERIALIZING
         // Serialize user1, user2 and user3 to disk
@@ -84,7 +65,7 @@ public class CodeGenerationTest {
 
     @Test
     public void streamSerializationTest() throws IOException {
-        List<User> users = this.createUser();
+        List<User> users = UserDataSetHelper.createUser();
 
         // SERIALIZING
         // Serialize user1, user2 and user3 to disk
