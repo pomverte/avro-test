@@ -35,6 +35,7 @@
               <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
               <!-- <outputDirectory>${project.basedir}/src/main/java/</outputDirectory> -->
               <outputDirectory>${project.basedir}/target/generated-sources/</outputDirectory>
+              <stringType>String</stringType>
             </configuration>
           </execution>
         </executions>
