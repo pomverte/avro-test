@@ -1,0 +1,12 @@
+{
+    "namespace": "com.cloudera.blog",
+    "type": "record",
+    "name": "Employee1",
+    "version": "1",
+    "fields": [
+        {"name": "name", "type": "string"},
+        {"name": "age", "type": "int"},
+        {"name": "emails", "type": {"type": "array", "items": "string"}},
+        {"name": "boss", "type": ["Employee1","null"]}
+    ]
+}
