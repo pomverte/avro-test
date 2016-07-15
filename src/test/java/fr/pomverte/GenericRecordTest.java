@@ -41,17 +41,17 @@ public class GenericRecordTest {
 
         // Serialize user1 and user2 to disk
         File outputFile = new File("target/users.avro");
-        DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<GenericRecord>(schema);
-        DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<GenericRecord>(datumWriter);
+        DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<>(schema);
+        DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<>(datumWriter);
         dataFileWriter.create(schema, outputFile);
         dataFileWriter.append(user1);
         dataFileWriter.append(user2);
         dataFileWriter.close();
 
         // Deserialize users from disk
-        DatumReader<GenericRecord> datumReader = new GenericDatumReader<GenericRecord>(schema);
+        DatumReader<GenericRecord> datumReader = new GenericDatumReader<>(schema);
         @SuppressWarnings("resource")
-        DataFileReader<GenericRecord> dataFileReader = new DataFileReader<GenericRecord>(outputFile, datumReader);
+        DataFileReader<GenericRecord> dataFileReader = new DataFileReader<>(outputFile, datumReader);
         GenericRecord user = null;
         int counter = 0;
         while (dataFileReader.hasNext()) {
