@@ -16,31 +16,9 @@ import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericRecord;
 
-import example.avro.User;
-
 public final class UserDataSetHelper {
 
     private UserDataSetHelper() {
-    }
-
-    public static List<User> createUser() {
-        // CREATING USERS
-        User user1 = new User();
-        user1.setName("Alyssa");
-        user1.setFavoriteNumber(256);
-        // Leave favorite color null
-
-        // Alternate constructor
-        User user2 = new User("Ben", 7, "red");
-
-        // Construct via builder
-        User user3 = User.newBuilder().setName("Charlie").setFavoriteColor("blue").setFavoriteNumber(null).build();
-
-        ArrayList<User> result = new ArrayList<User>();
-        result.add(user1);
-        result.add(user2);
-        result.add(user3);
-        return result;
     }
 
     public static List<GenericRecord> createRecord(Schema schema) {
