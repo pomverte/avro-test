@@ -5,16 +5,23 @@
   <artifactId>avro-test</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
+  <properties>
+    <java.version>1.7</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <avro.version>1.8.0</avro.version>
+    <junit.version>4.12</junit.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <version>${junit.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.avro</groupId>
       <artifactId>avro</artifactId>
-      <version>1.8.0</version>
+      <version>${avro.version}</version>
     </dependency>
   </dependencies>
 
@@ -24,7 +31,7 @@
       <plugin>
         <groupId>org.apache.avro</groupId>
         <artifactId>avro-maven-plugin</artifactId>
-        <version>1.8.0</version>
+        <version>${avro.version}</version>
         <executions>
           <execution>
             <phase>generate-sources</phase>
@@ -43,9 +50,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
         </configuration>
       </plugin>
 
