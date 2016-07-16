@@ -1,9 +1,10 @@
 {"namespace": "example.avro",
  "type": "record",
- "name": "User",
- "version": "1",
+ "name": "User2",
+ "version": "2",
  "fields": [
      {"name": "name", "type": "string"},
+     {"name": "surname", "type": "string", "default" : "johndoe"},
      {"name": "favorite_number",  "type": ["int", "null"]},
      {"name": "favorite_color", "type": ["string", "null"]}
  ]
