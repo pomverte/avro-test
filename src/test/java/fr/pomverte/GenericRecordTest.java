@@ -8,15 +8,10 @@ import java.util.List;
 
 import org.apache.avro.Schema;
 import org.apache.avro.file.DataFileReader;
-import org.apache.avro.file.DataFileWriter;
 import org.apache.avro.generic.GenericDatumReader;
-import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.io.DatumReader;
-import org.apache.avro.io.DatumWriter;
 import org.junit.Test;
-
-import fr.pomverte.helper.UserDataSetHelper;
 
 /**
  * Avro Without Code Generation
@@ -30,16 +25,10 @@ public class GenericRecordTest {
         // PARSE SCHEMA
         Schema schema = new Schema.Parser().parse(new File(USER_SCHEMA_PATH));
 
-        List<GenericRecord> users = UserDataSetHelper.createRecord(schema);
+        List<GenericRecord> records = DataHelper.createRecord(schema);
 
         // Serialize user1 and user2 to disk
-        File outputFile = new File("target/users.avro");
-        DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<>(schema);
-        DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<>(datumWriter);
-        dataFileWriter.create(schema, outputFile);
-        dataFileWriter.append(users.get(0));
-        dataFileWriter.append(users.get(1));
-        dataFileWriter.close();
+        File outputFile = WriterHelper.writeGenericToFile(schema, records, new File("target/users.avro"));
 
         // Deserialize users from disk
         DatumReader<GenericRecord> datumReader = new GenericDatumReader<>(schema);

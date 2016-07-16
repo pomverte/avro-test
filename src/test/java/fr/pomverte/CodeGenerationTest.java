@@ -25,7 +25,7 @@ public class CodeGenerationTest {
                 new File("target/users.avro"));
 
         // DESERIALIZE USERS FROM DISK
-        List<User> readFromFile = ReaderHelper.readFromFile(User.class, outputFile);
+        List<User> readFromFile = ReaderHelper.readSpecificFromFile(User.class, outputFile);
         assertEquals("3 Users have been created", 3, readFromFile.size());
     }
 
@@ -36,6 +36,7 @@ public class CodeGenerationTest {
         ByteArrayOutputStream outputStream = WriterHelper.writeRecordToStream(User.class, DataHelper.createUser());
 
         // DESERIALIZE USERS FROM binary
-        assertEquals("3 Users have been created", 3, ReaderHelper.readFromStream(User.class, outputStream).size());
+        List<User> users = ReaderHelper.readSpecificFromStream(User.class, outputStream);
+        assertEquals("3 Users have been created", 3, users.size());
     }
 }

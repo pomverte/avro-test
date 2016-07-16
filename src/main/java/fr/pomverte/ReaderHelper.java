@@ -7,7 +7,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.avro.Schema;
 import org.apache.avro.file.DataFileReader;
+import org.apache.avro.generic.GenericDatumReader;
+import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.io.BinaryDecoder;
 import org.apache.avro.io.DatumReader;
 import org.apache.avro.io.DecoderFactory;
@@ -22,7 +25,7 @@ public class ReaderHelper {
      * @param outputStream
      * @param classz
      */
-    public static <T extends SpecificRecordBase> List<T> readFromStream(Class<T> classz,
+    public static <T extends SpecificRecordBase> List<T> readSpecificFromStream(Class<T> classz,
             ByteArrayOutputStream outputStream) {
         DatumReader<T> datumReader = new SpecificDatumReader<>(classz);
         BinaryDecoder decoder = DecoderFactory.get().binaryDecoder(outputStream.toByteArray(), null);
@@ -33,30 +36,40 @@ public class ReaderHelper {
                 datumReader.read(deserialized, decoder);
                 result.add(deserialized);
             }
-        } catch (IOException | InstantiationException | IllegalAccessException | IllegalArgumentException
+        } catch (IOException e) {
+            // probably at the end of the decoder 
+            e.printStackTrace();
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             e.printStackTrace();
         }
         return result;
     }
 
-    public static <T extends SpecificRecordBase> List<T> readFromFile(Class<T> classz, File outputFile) {
-        DatumReader<T> userDatumReader = new SpecificDatumReader<>(classz);
+    public List<GenericRecord> readGenericFromFile(Schema schema, File file) {
+        return ReaderHelper.readFromFile(GenericRecord.class, new GenericDatumReader<GenericRecord>(schema), file);
+    }
+
+    public static <T extends SpecificRecordBase> List<T> readSpecificFromFile(Class<T> classz, File file) {
+        return ReaderHelper.readFromFile(classz, new SpecificDatumReader<>(classz), file);
+    }
+
+    private static <T> List<T> readFromFile(Class<T> classz, DatumReader<T> datumReader, File file) {
         List<T> result = new ArrayList<>();
         try {
             @SuppressWarnings("resource")
-            DataFileReader<T> dataFileReader = new DataFileReader<>(outputFile, userDatumReader);
+            DataFileReader<T> dataFileReader = new DataFileReader<>(file, datumReader);
             T record = null;
             while (dataFileReader.hasNext()) {
                 // Reuse user object by passing it to next(). This saves us from
                 // allocating and garbage collecting many objects for files with
                 // many items.
-                record = dataFileReader.next(record);
-                result.add(record);
+                result.add(dataFileReader.next(record));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return result;
     }
+
 }
