@@ -18,7 +18,7 @@ import org.junit.Test;
  */
 public class GenericRecordTest {
 
-    private static final String USER_SCHEMA_PATH = "src/main/avro/user.avsc";
+    private static final String USER_SCHEMA_PATH = "src/main/avro/user2.avsc";
     
     @Test
     public void createSerializeDeserialize() throws IOException {

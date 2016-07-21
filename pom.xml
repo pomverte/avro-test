@@ -52,11 +52,12 @@
               <includes>
                 <include>**/*.avsc</include>
               </includes>
-              <!-- http://stackoverflow.com/questions/21539113/can-i-split-an-apache-avro-schema-across-multiple-files -->
+              <!-- FIXME http://stackoverflow.com/questions/21539113/can-i-split-an-apache-avro-schema-across-multiple-files
               <imports>
                 <import>${project.basedir}/src/main/resources/avro/user.avsc</import>
                 <import>${project.basedir}/src/main/resources/avro/UserList.avsc</import>
               </imports>
+              -->
             </configuration>
           </execution>
         </executions>

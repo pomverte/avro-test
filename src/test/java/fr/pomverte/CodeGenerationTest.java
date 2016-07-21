@@ -17,6 +17,8 @@ import example.avro.User;
  */
 public class CodeGenerationTest {
 
+    private static final String JSON_USER_ARRAY = "[{\"name\":\"Alyssa\",\"favorite_number\":{\"int\":256},\"favorite_color\":null}, {\"name\":\"Ben\",\"favorite_number\":{\"int\":7},\"favorite_color\":{\"string\":\"red\"}}, {\"name\":\"Charlie\",\"favorite_number\":null,\"favorite_color\":{\"string\":\"blue\"}}]";
+
     @Test
     public void fileSerializationTest() throws IOException {
         // SERIALIZING
@@ -39,4 +41,14 @@ public class CodeGenerationTest {
         List<User> users = ReaderHelper.readSpecificFromStream(User.class, outputStream);
         assertEquals("3 Users have been created", 3, users.size());
     }
+
+    @Test
+    public void jsonSerializationTest() throws IOException {
+        // SERIALIZING
+        // Serialize user1, user2 and user3 into a JSON array
+         String json = WriterHelper.writeRecordToJson(User.getClassSchema(), User.class, false,
+         DataHelper.createUser());
+         assertEquals(JSON_USER_ARRAY, json);
+    }
+
 }
