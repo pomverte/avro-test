@@ -2,7 +2,6 @@ package fr.pomverte;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.List;
 
