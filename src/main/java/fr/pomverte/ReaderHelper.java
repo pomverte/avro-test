@@ -1,6 +1,6 @@
 package fr.pomverte;
 
-import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -36,10 +36,10 @@ public class ReaderHelper {
                 datumReader.read(deserialized, decoder);
                 result.add(deserialized);
             }
-        } catch (IOException e) {
-            // probably at the end of the decoder 
-            e.printStackTrace();
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+        } catch (EOFException e) {
+            // the end of the decoder
+
+        } catch (IOException | InstantiationException | IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             e.printStackTrace();
         }
