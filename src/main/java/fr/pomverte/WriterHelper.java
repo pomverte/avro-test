@@ -18,7 +18,24 @@ import org.apache.avro.specific.SpecificRecordBase;
 public class WriterHelper {
 
     private static byte[] NO_BYTE_ARRAY = {};
-    
+
+    public static <T extends SpecificRecordBase> byte[] recordToByte(Class<T> classz,
+            T record) {
+        byte[] result;
+        DatumWriter<T> userDatumWriter = new SpecificDatumWriter<>(classz);
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            BinaryEncoder encoder = EncoderFactory.get().binaryEncoder(outputStream, null);
+            userDatumWriter.write(record, encoder);
+            // flush the binary code into the outputstream
+            encoder.flush();
+            result = outputStream.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return NO_BYTE_ARRAY;
+        }
+        return result;
+    }
+
     public static <T extends SpecificRecordBase> File writeRecordToFile(Class<T> classz, List<T> records, File file) {
         DatumWriter<T> userDatumWriter = new SpecificDatumWriter<>(classz);
         try (DataFileWriter<T> dataFileWriter = new DataFileWriter<>(userDatumWriter)) {

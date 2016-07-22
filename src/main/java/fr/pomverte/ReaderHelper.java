@@ -19,6 +19,24 @@ import org.apache.avro.specific.SpecificRecordBase;
 
 public class ReaderHelper {
 
+    public static <T extends SpecificRecordBase> T byteToRecord(Class<T> classz, byte[] avro) {
+        DatumReader<T> datumReader = new SpecificDatumReader<>(classz);
+        BinaryDecoder decoder = DecoderFactory.get().binaryDecoder(avro, null);
+        T result = null;
+        try {
+            T deserialized = classz.getDeclaredConstructor().newInstance();
+            datumReader.read(deserialized, decoder);
+            result = deserialized;
+        } catch (EOFException e) {
+            // the end of the decoder
+
+        } catch (IOException | InstantiationException | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     /**
      * DESERIALIZE SpecificRecord FROM binary stream
      * 
