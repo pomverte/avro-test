@@ -3,7 +3,6 @@ package fr.pomverte;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.junit.Test;
@@ -17,7 +16,7 @@ import example.avro.User2;
 public class SchemaEvolutionTest {
 
     @Test
-    public void serialiazeV1derializeV2() throws IOException {
+    public void serialiazeV1derializeV2() {
         // Serialize data with shema version 1
         File outputFile = WriterHelper.writeRecordToFile(User.class, DataHelper.createUser(),
                 new File("target/users.avro"));

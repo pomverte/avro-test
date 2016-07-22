@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.junit.Test;
@@ -18,7 +17,7 @@ import example.avro.User;
 public class CodeGenerationTest {
 
     @Test
-    public void fileSerializationTest() throws IOException {
+    public void fileSerializationTest() {
         // SERIALIZING
         // Serialize user1, user2 and user3 to disk
         File outputFile = WriterHelper.writeRecordToFile(User.class, DataHelper.createUser(),
@@ -30,7 +29,7 @@ public class CodeGenerationTest {
     }
 
     @Test
-    public void streamSerializationTest() throws IOException {
+    public void streamSerializationTest() {
         // SERIALIZING
         // Serialize user1, user2 and user3 into a stream
         byte[] avro = WriterHelper.writeRecordToStream(User.class, DataHelper.createUser());
