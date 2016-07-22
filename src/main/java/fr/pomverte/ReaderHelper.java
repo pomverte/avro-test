@@ -25,10 +25,10 @@ public class ReaderHelper {
      * @param outputStream
      * @param classz
      */
-    public static <T extends SpecificRecordBase> List<T> readSpecificFromStream(Class<T> classz,
-            ByteArrayOutputStream outputStream) {
+    public static <T extends SpecificRecordBase> List<T> readSpecificFromByte(Class<T> classz,
+            byte[] avro) {
         DatumReader<T> datumReader = new SpecificDatumReader<>(classz);
-        BinaryDecoder decoder = DecoderFactory.get().binaryDecoder(outputStream.toByteArray(), null);
+        BinaryDecoder decoder = DecoderFactory.get().binaryDecoder(avro, null);
         List<T> result = new ArrayList<>();
         try {
             while (true) {

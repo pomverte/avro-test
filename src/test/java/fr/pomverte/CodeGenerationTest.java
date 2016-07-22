@@ -33,10 +33,10 @@ public class CodeGenerationTest {
     public void streamSerializationTest() throws IOException {
         // SERIALIZING
         // Serialize user1, user2 and user3 into a stream
-        ByteArrayOutputStream outputStream = WriterHelper.writeRecordToStream(User.class, DataHelper.createUser());
+        byte[] avro = WriterHelper.writeRecordToStream(User.class, DataHelper.createUser());
 
         // DESERIALIZE USERS FROM binary
-        List<User> users = ReaderHelper.readSpecificFromStream(User.class, outputStream);
+        List<User> users = ReaderHelper.readSpecificFromByte(User.class, avro);
         assertEquals("3 Users have been created", 3, users.size());
     }
 }
