@@ -47,14 +47,14 @@ public class ReaderHelper {
     }
 
     public List<GenericRecord> readGenericFromFile(Schema schema, File file) {
-        return ReaderHelper.readFromFile(GenericRecord.class, new GenericDatumReader<GenericRecord>(schema), file);
+        return ReaderHelper.readFromFile(new GenericDatumReader<GenericRecord>(schema), file);
     }
 
     public static <T extends SpecificRecordBase> List<T> readSpecificFromFile(Class<T> classz, File file) {
-        return ReaderHelper.readFromFile(classz, new SpecificDatumReader<>(classz), file);
+        return ReaderHelper.readFromFile(new SpecificDatumReader<>(classz), file);
     }
 
-    private static <T> List<T> readFromFile(Class<T> classz, DatumReader<T> datumReader, File file) {
+    private static <T> List<T> readFromFile(DatumReader<T> datumReader, File file) {
         List<T> result = new ArrayList<>();
         try (DataFileReader<T> dataFileReader = new DataFileReader<>(file, datumReader)) {
             T record = null;
