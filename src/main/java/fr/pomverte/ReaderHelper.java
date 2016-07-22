@@ -56,9 +56,7 @@ public class ReaderHelper {
 
     private static <T> List<T> readFromFile(Class<T> classz, DatumReader<T> datumReader, File file) {
         List<T> result = new ArrayList<>();
-        try {
-            @SuppressWarnings("resource")
-            DataFileReader<T> dataFileReader = new DataFileReader<>(file, datumReader);
+        try (DataFileReader<T> dataFileReader = new DataFileReader<>(file, datumReader)) {
             T record = null;
             while (dataFileReader.hasNext()) {
                 // Reuse user object by passing it to next(). This saves us from
